@@ -39,6 +39,13 @@ public class ClipboardScreen extends Screen {
     @Override
     public void onClose() {
         super.onClose();
+        List<Page> pages = new ArrayList<>(data.pages());
+        for (int i = pages.size() - 1; i > 0; i--) {
+            if (i == data.active()) break;
+            if (!pages.get(i).equals(Page.DEFAULT)) break;
+            pages.remove(i);
+        }
+        data = data.setPages(pages);
         BCClipboard.INSTANCE.sendToServer(new ClipboardSyncPacket(data));
     }
 
