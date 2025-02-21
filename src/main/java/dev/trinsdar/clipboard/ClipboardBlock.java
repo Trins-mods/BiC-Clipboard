@@ -14,7 +14,9 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -22,11 +24,15 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.storage.loot.LootParams.Builder;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
+
+import java.util.List;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
 
@@ -38,8 +44,8 @@ public class ClipboardBlock extends Block implements EntityBlock, SimpleWaterlog
     private static final VoxelShape EAST_SHAPE = BCClipboardUtils.rotate(NORTH_SHAPE, Rotation.CLOCKWISE_90);
     private static final VoxelShape SOUTH_SHAPE = BCClipboardUtils.rotate(NORTH_SHAPE, Rotation.CLOCKWISE_180);
     private static final VoxelShape WEST_SHAPE = BCClipboardUtils.rotate(NORTH_SHAPE, Rotation.COUNTERCLOCKWISE_90);
-    public ClipboardBlock(Properties properties) {
-        super(properties);
+    public ClipboardBlock() {
+        super(BlockBehaviour.Properties.of().instabreak().sound(SoundType.WOOD).ignitedByLava());
         registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
     }
 
@@ -99,5 +105,17 @@ public class ClipboardBlock extends Block implements EntityBlock, SimpleWaterlog
             ClipboardContent clipboardContent = clipboardTag != null ? ClipboardContent.deserialize(clipboardTag) : ClipboardContent.DEFAULT;
             clipboard.setContent(clipboardContent);
         }
+    }
+
+    @Override
+    public List<ItemStack> getDrops(BlockState state, Builder params) {
+        List<ItemStack> drops1 = super.getDrops(state, params);
+        BlockEntity entity = params.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+        if (entity instanceof ClipboardBlockEntity clipboard && !drops1.isEmpty()) {
+            ItemStack stack = drops1.get(0);
+            CompoundTag clipboardTag = clipboard.getContent().serialize();
+            stack.getOrCreateTag().put("clipboardContent", clipboardTag);
+        }
+        return drops1;
     }
 }

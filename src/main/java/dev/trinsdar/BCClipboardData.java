@@ -4,6 +4,7 @@ import dev.trinsdar.clipboard.ClipboardBlock;
 import dev.trinsdar.clipboard.ClipboardBlockEntity;
 import dev.trinsdar.clipboard.ClipboardItem;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -23,14 +24,14 @@ public class BCClipboardData {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, BCClipboard.ID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, BCClipboard.ID);
 
-    public static final RegistryObject<Block> CLIPBOARD = BLOCKS.register("clipboard", () -> new ClipboardBlock(BlockBehaviour.Properties.of().mapColor(MapColor.STONE)));
+    public static final RegistryObject<Block> CLIPBOARD = BLOCKS.register("clipboard", ClipboardBlock::new);
     public static final RegistryObject<Item> CLIPBOARD_ITEM = ITEMS.register("clipboard", ClipboardItem::new);
     public static final RegistryObject<BlockEntityType<ClipboardBlockEntity>> CLIPBOARD_BLOCK_ENTITY = BLOCK_ENTITIES.register("clipboard", () -> BlockEntityType.Builder.of(ClipboardBlockEntity::new, CLIPBOARD.get()).build(null));
     public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("bc_clipboard", () -> CreativeModeTab.builder()
-            .withTabsBefore(CreativeModeTabs.COMBAT)
+            .title(Component.translatable("itemGroup." + BCClipboard.ID))
             .icon(() -> CLIPBOARD_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(CLIPBOARD_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(CLIPBOARD_ITEM.get());
             }).build());
     public static void init(){
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
