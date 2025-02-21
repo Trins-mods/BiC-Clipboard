@@ -137,29 +137,13 @@ public class ClipboardBlock extends Block implements EntityBlock, SimpleWaterlog
         double y = vec.y() - hit.getBlockPos().getY();
         if (hand == InteractionHand.MAIN_HAND) {
             if (x < 0.73 && x > 0.697){
-                int checkY = -1;
-                if (y < 0.22 && y > 0.18) checkY = 8;
-                if (y < 0.28 && y > 0.24) checkY = 7;
-                if (y < 0.34 && y > 0.3) checkY = 6;
-                if (y < 0.4 && y > 0.36) checkY = 5;
-                if (y < 0.46 && y > 0.42) checkY = 4;
-                if (y < 0.52 && y > 0.48) checkY = 3;
-                if (y < 0.58 && y > 0.54) checkY = 2;
-                if (y < 0.64 && y > 0.6) checkY = 1;
-                if (y < 0.7 && y > 0.66) checkY = 0;
+                int checkY = getCheckY(y);
                 if (checkY > -1){
                     if (level.isClientSide()) return InteractionResult.CONSUME;
                     else {
                         BlockEntity blockEntity = level.getBlockEntity(pos);
                         if (blockEntity instanceof ClipboardBlockEntity clipboard) {
-                            Page page = clipboard.getContent().pages().get(clipboard.getContent().active());
-                            CheckboxState checkboxState = page.checkboxes().get(checkY);
-                            checkboxState = checkboxState.cycle();
-                            List<CheckboxState> checkboxStates = new ArrayList<>(page.checkboxes());
-                            checkboxStates.set(checkY, checkboxState);
-                            page = page.setCheckboxes(checkboxStates);
-                            List<Page> pages = new ArrayList<>(clipboard.getContent().pages());
-                            pages.set(clipboard.getContent().active(), page);
+                            List<Page> pages = getPages(clipboard, checkY);
                             clipboard.setContent(clipboard.getContent().setPages(pages));
                             level.playSound(null, pos, SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.BLOCKS, 1.0F, 1.0F);
                             return InteractionResult.SUCCESS;
@@ -169,5 +153,31 @@ public class ClipboardBlock extends Block implements EntityBlock, SimpleWaterlog
             }
         }
         return super.use(state, level, pos, player, hand, hit);
+    }
+
+    private int getCheckY(double y) {
+        int checkY = -1;
+        if (y < 0.22 && y > 0.18) checkY = 8;
+        if (y < 0.28 && y > 0.24) checkY = 7;
+        if (y < 0.34 && y > 0.3) checkY = 6;
+        if (y < 0.4 && y > 0.36) checkY = 5;
+        if (y < 0.46 && y > 0.42) checkY = 4;
+        if (y < 0.52 && y > 0.48) checkY = 3;
+        if (y < 0.58 && y > 0.54) checkY = 2;
+        if (y < 0.64 && y > 0.6) checkY = 1;
+        if (y < 0.7 && y > 0.66) checkY = 0;
+        return checkY;
+    }
+
+    private List<Page> getPages(ClipboardBlockEntity clipboard, int checkY) {
+        Page page = clipboard.getContent().pages().get(clipboard.getContent().active());
+        CheckboxState checkboxState = page.checkboxes().get(checkY);
+        checkboxState = checkboxState.cycle();
+        List<CheckboxState> checkboxStates = new ArrayList<>(page.checkboxes());
+        checkboxStates.set(checkY, checkboxState);
+        page = page.setCheckboxes(checkboxStates);
+        List<Page> pages = new ArrayList<>(clipboard.getContent().pages());
+        pages.set(clipboard.getContent().active(), page);
+        return pages;
     }
 }
