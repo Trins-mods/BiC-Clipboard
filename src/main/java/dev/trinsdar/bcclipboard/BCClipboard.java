@@ -2,7 +2,6 @@ package dev.trinsdar.bcclipboard;
 
 import com.mojang.logging.LogUtils;
 import dev.trinsdar.bcclipboard.client.ClientHandler;
-import dev.trinsdar.client.ClipboardBER;
 import dev.trinsdar.bcclipboard.clipboard.ClipboardSyncPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
