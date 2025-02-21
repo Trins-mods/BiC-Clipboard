@@ -25,8 +25,8 @@ public class ClipboardScreen extends Screen {
     private final ItemStack stack;
     private ClipboardContent data;
     private final CheckboxButton[] checkboxes = new CheckboxButton[ClipboardContent.MAX_LINES];
-    private final EditBox[] lines = new EditBox[ClipboardContent.MAX_LINES];
-    private EditBox titleBox;
+    private final ClipboardEditBox[] lines = new ClipboardEditBox[ClipboardContent.MAX_LINES];
+    private ClipboardEditBox titleBox;
     private PageButton forwardButton;
     private PageButton backButton;
 
@@ -45,7 +45,7 @@ public class ClipboardScreen extends Screen {
     @Override
     protected void init() {
         int x = (width - 192) / 2;
-        titleBox = addRenderableWidget(new EditBox(getMinecraft().font, x + 57, 14, 72, 8, Component.empty()));
+        titleBox = addRenderableWidget(new ClipboardEditBox(getMinecraft().font, x + 57, 14, 72, 8, Component.empty()));
         titleBox.setTextColor(0);
         titleBox.setBordered(false);
         //titleBox.setTextShadow(false);
@@ -60,7 +60,7 @@ public class ClipboardScreen extends Screen {
                 pages.set(data.active(), page.setCheckboxes(checkboxes));
                 data = data.setPages(pages);
             }));
-            lines[i] = addRenderableWidget(new EditBox(getMinecraft().font, x + 45, 15 * i + 28, 109, 8, Component.empty()));
+            lines[i] = addRenderableWidget(new ClipboardEditBox(getMinecraft().font, x + 45, 15 * i + 28, 109, 8, Component.empty()));
             lines[i].setTextColor(0);
             lines[i].setBordered(false);
             //lines[i].setTextShadow(false);
