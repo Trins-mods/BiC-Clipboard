@@ -59,8 +59,8 @@ public record ClipboardContent(String title, int active, List<Page> pages) {
 
     public void encode(FriendlyByteBuf buf) {
         buf.writeUtf(title);
-        buf.writeInt(active);
-        buf.writeInt(pages.size());
+        buf.writeVarInt(active);
+        buf.writeVarInt(pages.size());
         for (Page page : pages) {
             page.encode(buf);
         }
