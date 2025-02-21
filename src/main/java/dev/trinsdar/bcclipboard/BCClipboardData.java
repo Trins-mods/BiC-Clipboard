@@ -24,7 +24,7 @@ public class BCClipboardData {
     public static final RegistryObject<Block> CLIPBOARD = BLOCKS.register("clipboard", ClipboardBlock::new);
     public static final RegistryObject<Item> CLIPBOARD_ITEM = ITEMS.register("clipboard", ClipboardItem::new);
     public static final RegistryObject<BlockEntityType<ClipboardBlockEntity>> CLIPBOARD_BLOCK_ENTITY = BLOCK_ENTITIES.register("clipboard", () -> BlockEntityType.Builder.of(ClipboardBlockEntity::new, CLIPBOARD.get()).build(null));
-    public static final RegistryObject<CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("bc_clipboard", () -> CreativeModeTab.builder()
+    public static final RegistryObject<CreativeModeTab> CLIPBOARD_TAB = CREATIVE_MODE_TABS.register(BCClipboard.ID, () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup." + BCClipboard.ID))
             .icon(() -> CLIPBOARD_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
