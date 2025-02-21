@@ -18,6 +18,7 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
@@ -136,6 +137,11 @@ public class ClipboardBlock extends Block implements EntityBlock, SimpleWaterlog
         double x = hit.getDirection().getAxis() == Direction.Axis.Z ?  vec.x() - hit.getBlockPos().getX() : vec.z() - hit.getBlockPos().getZ();
         double y = vec.y() - hit.getBlockPos().getY();
         if (hand == InteractionHand.MAIN_HAND) {
+            if (player.isCrouching()) {
+                dropResources(state, level, pos, level.getBlockEntity(pos));
+                level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
+                return InteractionResult.sidedSuccess(level.isClientSide());
+            }
             if (x < 0.73 && x > 0.697){
                 int checkY = getCheckY(y);
                 if (checkY > -1){
