@@ -45,4 +45,11 @@ public class BCClipboardUtils {
         }
         return simplify ? combinedShape.optimize() : combinedShape;
     }
+
+    public static <T> List<T> extend(List<T> list, int size, T fill) {
+        for (int i = list.size(); i < size; i++) {
+            list.add(fill);
+        }
+        return list;
+    }
 }

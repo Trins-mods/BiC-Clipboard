@@ -1,5 +1,6 @@
 package dev.trinsdar.clipboard;
 
+import dev.trinsdar.BCClipboardUtils;
 import dev.trinsdar.CheckboxState;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -97,6 +98,10 @@ public record ClipboardContent(String title, int active, List<Page> pages) {
 
     public record Page(List<CheckboxState> checkboxes, List<String> lines){
         public static final Page DEFAULT = new Page(new ArrayList<>(MAX_LINES), new ArrayList<>(MAX_LINES));
+        public Page(List<CheckboxState> checkboxes, List<String> lines) {
+            this.checkboxes = BCClipboardUtils.extend(checkboxes, MAX_LINES, CheckboxState.EMPTY);
+            this.lines = BCClipboardUtils.extend(lines, MAX_LINES, "");
+        }
         public CompoundTag serialize() {
             CompoundTag tag = new CompoundTag();
             ListTag checkboxesTag = new ListTag();
