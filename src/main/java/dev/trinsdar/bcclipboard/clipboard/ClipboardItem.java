@@ -14,7 +14,7 @@ import net.minecraft.world.level.Level;
 
 public class ClipboardItem  extends BlockItem {
     public ClipboardItem() {
-        super(BCClipboardData.CLIPBOARD.get(), new Item.Properties().stacksTo(1));
+        super(BCClipboardData.CLIPBOARD.get(), new Item.Properties().stacksTo(1).tab(BCClipboardData.CLIPBOARD_TAB));
     }
 
     @Override

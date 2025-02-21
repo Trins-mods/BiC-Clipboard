@@ -23,8 +23,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.level.storage.loot.LootParams.Builder;
+import net.minecraft.world.level.storage.loot.LootContext.Builder;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -45,7 +46,7 @@ public class ClipboardBlock extends Block implements EntityBlock, SimpleWaterlog
     private static final VoxelShape SOUTH_SHAPE = BCClipboardUtils.rotate(NORTH_SHAPE, Rotation.CLOCKWISE_180);
     private static final VoxelShape WEST_SHAPE = BCClipboardUtils.rotate(NORTH_SHAPE, Rotation.COUNTERCLOCKWISE_90);
     public ClipboardBlock() {
-        super(BlockBehaviour.Properties.of().instabreak().sound(SoundType.WOOD).ignitedByLava());
+        super(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(SoundType.WOOD));
         registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
     }
 
