@@ -30,7 +30,7 @@ public final class ClipboardReadOnlyRenderer {
     public static void render(PoseStack pose, MultiBufferSource bufferSource, ClipboardContent data, int width, int height) {
         pose.pushPose();
         RenderSystem.enableDepthTest();
-        blit(pose, BACKGROUND, 0, 0, 0, 0, width, height, 256, 256);
+        ClipboardScreen.drawTexture(pose, BACKGROUND, 0, 0, 0, 0, width, height, 256, 256);
         RenderSystem.disableDepthTest();
         drawText(pose, bufferSource, data.title(), 29, 2, 72, 8);
         ClipboardContent.Page page = data.pages().get(data.active());
@@ -54,7 +54,7 @@ public final class ClipboardReadOnlyRenderer {
     }
 
     private static void blitSprite(PoseStack pose, ResourceLocation location, int x, int y, int width, int height) {
-        blit(pose, location, x, y, 0, 0, width, height, width, height);
+        ClipboardScreen.drawTexture(pose, location, x, y, 0, 0, width, height, width, height);
     }
 
     private static void blit(PoseStack pose, ResourceLocation atlasLocation, float x, float y, float uOffset, float vOffset, float uWidth, float vHeight, float textureWidth, float textureHeight) {

@@ -1,15 +1,20 @@
 package dev.trinsdar.bcclipboard.client;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import dev.trinsdar.bcclipboard.BCClipboard;
 import dev.trinsdar.bcclipboard.clipboard.CheckboxState;
 import dev.trinsdar.bcclipboard.clipboard.ClipboardContent;
 import dev.trinsdar.bcclipboard.clipboard.ClipboardContent.Page;
 import dev.trinsdar.bcclipboard.clipboard.ClipboardSyncPacket;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.BookViewScreen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -96,14 +101,24 @@ public class ClipboardScreen extends Screen {
             data = data.prevPage();
             updateContents();
         }, false));
-        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, $ -> onClose()).bounds(width / 2 - 100, 196, 200, 20).build());
+        addRenderableWidget(new Button(width / 2 - 100, 196, 200, 20, CommonComponents.GUI_DONE, $ -> onClose()));
         updateContents();
     }
 
+
+    public static void drawTexture(PoseStack stack, ResourceLocation loc, int left, int top, int x, int y, int sizeX, int sizeY, int textureSizeX, int textureSizeY) {
+        RenderSystem.setShaderColor(1, 1, 1, 1);
+        RenderSystem.setShaderTexture(0, loc);
+        blit(stack, left, top, x, y, sizeX, sizeY, textureSizeX, textureSizeY);
+    }
+
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-        graphics.blit(BACKGROUND, (width - 192) / 2, 2, 0, 0, 192, 192);
-        super.render(graphics, mouseX, mouseY, partialTicks);
+    public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(stack);
+        this.setFocused(null);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        drawTexture(stack, BACKGROUND, (width - 192) / 2, 2, 0, 0, 192, 192, 256, 256);
+        super.render(stack, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -149,7 +164,7 @@ public class ClipboardScreen extends Screen {
         private CheckboxState state = CheckboxState.EMPTY;
 
         public CheckboxButton(int x, int y, OnPress onPress) {
-            super(new Builder(Component.empty(), onPress).bounds(x, y, 14, 14));
+            super(x, y, 14, 14, Component.empty(), onPress);
         }
 
         public CheckboxState getState() {
@@ -171,9 +186,9 @@ public class ClipboardScreen extends Screen {
         }
 
         @Override
-        protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-            if (getSprite() != null) {
-                guiGraphics.blit(getSprite(), getX(), getY(), 0, 0, 14, 14, 14, 14);
+        public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+            if (getSprite() != null){
+                drawTexture(poseStack, getSprite(), x, y, 0, 0, 14, 14, 14, 14);
             }
         }
 
