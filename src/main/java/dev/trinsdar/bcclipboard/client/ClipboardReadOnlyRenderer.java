@@ -7,6 +7,7 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.math.Matrix4f;
 import dev.trinsdar.bcclipboard.BCClipboard;
 import dev.trinsdar.bcclipboard.clipboard.CheckboxState;
 import dev.trinsdar.bcclipboard.clipboard.ClipboardContent;
@@ -16,7 +17,6 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.resources.ResourceLocation;
-import org.joml.Matrix4f;
 
 /**
  * Holds methods for rendering clipboard contents in a read-only manner. A lot of code in here is boiled-down code from GuiGraphics.
@@ -50,7 +50,7 @@ public final class ClipboardReadOnlyRenderer {
         Font font = Minecraft.getInstance().font;
         String visibleText = font.plainSubstrByWidth(text, width);
         if (visibleText.isEmpty()) return;
-        font.drawInBatch(visibleText, x, y, 0, false, pose.last().pose(), bufferSource, Font.DisplayMode.POLYGON_OFFSET, 0, LightTexture.FULL_BRIGHT, font.isBidirectional());
+        font.drawInBatch(visibleText, x, y, 0, false, pose.last().pose(), bufferSource, false, 0, LightTexture.FULL_BRIGHT, font.isBidirectional());
     }
 
     private static void blitSprite(PoseStack pose, ResourceLocation location, int x, int y, int width, int height) {

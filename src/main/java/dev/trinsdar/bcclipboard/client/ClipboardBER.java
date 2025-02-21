@@ -1,7 +1,7 @@
 package dev.trinsdar.bcclipboard.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Axis;
+import com.mojang.math.Vector3f;
 import dev.trinsdar.bcclipboard.clipboard.ClipboardBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -11,7 +11,7 @@ public class ClipboardBER implements BlockEntityRenderer<ClipboardBlockEntity> {
     public void render(ClipboardBlockEntity blockEntity, float v, PoseStack stack, MultiBufferSource buffer, int i, int i1) {
         stack.pushPose();
         ClientUtil.setupCenteredBER(stack, blockEntity);
-        stack.mulPose(Axis.XP.rotationDegrees(180));
+        stack.mulPose(Vector3f.XP.rotationDegrees(180));
         stack.translate(-0.25, -0.25, 0.4375);
         stack.translate(0, 0, -1 / 1024d);
         float scale = 1 / 256f;

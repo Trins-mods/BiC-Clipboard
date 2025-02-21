@@ -1,7 +1,6 @@
 package dev.trinsdar.bcclipboard.client;
 
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
@@ -12,7 +11,7 @@ public class ClipboardEditBox extends EditBox {
         super(font, x, y, width, height, message);
     }
 
-    @Override
+    /*@Override
     public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
        if (this.isVisible()) {
            int color = this.textColor;
@@ -68,5 +67,5 @@ public class ClipboardEditBox extends EditBox {
 
            }
        }
-    }
+    }*/
 }
