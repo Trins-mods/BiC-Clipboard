@@ -7,6 +7,7 @@ import dev.trinsdar.bcclipboard.clipboard.ClipboardContent.Page;
 import dev.trinsdar.bcclipboard.clipboard.ClipboardSyncPacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
 import net.minecraft.network.chat.CommonComponents;
@@ -39,6 +40,14 @@ public class ClipboardScreen extends Screen {
     public void onClose() {
         super.onClose();
         BCClipboard.INSTANCE.sendToServer(new ClipboardSyncPacket(data));
+    }
+
+    @Override
+    public void tick() {
+        titleBox.tick();
+        for (EditBox box : lines) {
+            box.tick();
+        }
     }
 
     @Override
