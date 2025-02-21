@@ -11,4 +11,12 @@ public enum CheckboxState implements StringRepresentable {
     public String getSerializedName() {
         return name().toLowerCase();
     }
+
+    public CheckboxState cycle(){
+        return switch (this) {
+            case EMPTY -> CHECK;
+            case CHECK -> X;
+            case X -> EMPTY;
+        };
+    }
 }

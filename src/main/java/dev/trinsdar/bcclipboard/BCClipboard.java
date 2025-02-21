@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 @Mod(BCClipboard.ID)
 public class BCClipboard {
     public static final String ID = "bc_clipboard";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
     private static final String PROTOCOL_VERSION = "1";
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(ID, "main"),
