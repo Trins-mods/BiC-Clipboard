@@ -1,6 +1,6 @@
-package dev.trinsdar.client;
+package dev.trinsdar.bcclipboard.client;
 
-import dev.trinsdar.BCClipboardData;
+import dev.trinsdar.bcclipboard.BCClipboardData;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 

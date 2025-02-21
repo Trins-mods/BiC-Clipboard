@@ -1,4 +1,4 @@
-package dev.trinsdar.client;
+package dev.trinsdar.bcclipboard.client;
 
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.EditBox;

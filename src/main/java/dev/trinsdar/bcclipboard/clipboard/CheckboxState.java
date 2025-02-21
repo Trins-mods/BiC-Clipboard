@@ -1,4 +1,4 @@
-package dev.trinsdar;
+package dev.trinsdar.bcclipboard.clipboard;
 
 import net.minecraft.util.StringRepresentable;
 

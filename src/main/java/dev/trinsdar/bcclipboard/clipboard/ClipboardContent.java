@@ -1,7 +1,6 @@
-package dev.trinsdar.clipboard;
+package dev.trinsdar.bcclipboard.clipboard;
 
-import dev.trinsdar.BCClipboardUtils;
-import dev.trinsdar.CheckboxState;
+import dev.trinsdar.bcclipboard.BCClipboardUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;

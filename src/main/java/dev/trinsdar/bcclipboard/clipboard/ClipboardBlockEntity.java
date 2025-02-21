@@ -1,6 +1,6 @@
-package dev.trinsdar.clipboard;
+package dev.trinsdar.bcclipboard.clipboard;
 
-import dev.trinsdar.BCClipboardData;
+import dev.trinsdar.bcclipboard.BCClipboardData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;

@@ -1,4 +1,4 @@
-package dev.trinsdar.client;
+package dev.trinsdar.bcclipboard.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -7,15 +7,14 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import dev.trinsdar.BCClipboard;
-import dev.trinsdar.CheckboxState;
-import dev.trinsdar.clipboard.ClipboardContent;
+import dev.trinsdar.bcclipboard.BCClipboard;
+import dev.trinsdar.bcclipboard.clipboard.CheckboxState;
+import dev.trinsdar.bcclipboard.clipboard.ClipboardContent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Matrix4f;
 

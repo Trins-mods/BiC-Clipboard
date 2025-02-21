@@ -1,13 +1,12 @@
-package dev.trinsdar.client;
+package dev.trinsdar.bcclipboard.client;
 
-import dev.trinsdar.BCClipboard;
-import dev.trinsdar.CheckboxState;
-import dev.trinsdar.clipboard.ClipboardContent;
-import dev.trinsdar.clipboard.ClipboardContent.Page;
-import dev.trinsdar.clipboard.ClipboardSyncPacket;
+import dev.trinsdar.bcclipboard.BCClipboard;
+import dev.trinsdar.bcclipboard.clipboard.CheckboxState;
+import dev.trinsdar.bcclipboard.clipboard.ClipboardContent;
+import dev.trinsdar.bcclipboard.clipboard.ClipboardContent.Page;
+import dev.trinsdar.bcclipboard.clipboard.ClipboardSyncPacket;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
 import net.minecraft.network.chat.CommonComponents;

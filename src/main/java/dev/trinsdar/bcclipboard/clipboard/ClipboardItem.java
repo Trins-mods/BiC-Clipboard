@@ -1,6 +1,6 @@
-package dev.trinsdar.clipboard;
+package dev.trinsdar.bcclipboard.clipboard;
 
-import dev.trinsdar.BCClipboardData;
+import dev.trinsdar.bcclipboard.BCClipboardData;
 import dev.trinsdar.client.ClientUtil;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

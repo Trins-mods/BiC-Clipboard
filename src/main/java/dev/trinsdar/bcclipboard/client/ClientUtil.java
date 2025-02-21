@@ -1,4 +1,4 @@
-package dev.trinsdar.client;
+package dev.trinsdar.bcclipboard.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

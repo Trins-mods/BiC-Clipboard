@@ -1,8 +1,8 @@
-package dev.trinsdar.client;
+package dev.trinsdar.bcclipboard.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import dev.trinsdar.clipboard.ClipboardBlockEntity;
+import dev.trinsdar.bcclipboard.clipboard.ClipboardBlockEntity;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 

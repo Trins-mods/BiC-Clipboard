@@ -1,6 +1,6 @@
-package dev.trinsdar.clipboard;
+package dev.trinsdar.bcclipboard.clipboard;
 
-import dev.trinsdar.BCClipboardData;
+import dev.trinsdar.bcclipboard.BCClipboardData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;

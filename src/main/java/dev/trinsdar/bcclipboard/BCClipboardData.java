@@ -1,17 +1,14 @@
-package dev.trinsdar;
+package dev.trinsdar.bcclipboard;
 
-import dev.trinsdar.clipboard.ClipboardBlock;
-import dev.trinsdar.clipboard.ClipboardBlockEntity;
-import dev.trinsdar.clipboard.ClipboardItem;
+import dev.trinsdar.bcclipboard.clipboard.ClipboardBlock;
+import dev.trinsdar.bcclipboard.clipboard.ClipboardBlockEntity;
+import dev.trinsdar.bcclipboard.clipboard.ClipboardItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;

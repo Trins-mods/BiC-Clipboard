@@ -1,6 +1,6 @@
-package dev.trinsdar.clipboard;
+package dev.trinsdar.bcclipboard.clipboard;
 
-import dev.trinsdar.BCClipboardUtils;
+import dev.trinsdar.bcclipboard.BCClipboardUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

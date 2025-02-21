@@ -1,12 +1,11 @@
-package dev.trinsdar;
+package dev.trinsdar.bcclipboard;
 
 import com.mojang.logging.LogUtils;
-import dev.trinsdar.client.ClientHandler;
+import dev.trinsdar.bcclipboard.client.ClientHandler;
 import dev.trinsdar.client.ClipboardBER;
-import dev.trinsdar.clipboard.ClipboardSyncPacket;
+import dev.trinsdar.bcclipboard.clipboard.ClipboardSyncPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.network.NetworkRegistry;

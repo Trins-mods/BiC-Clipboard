@@ -1,4 +1,4 @@
-package dev.trinsdar;
+package dev.trinsdar.bcclipboard;
 
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.phys.AABB;
