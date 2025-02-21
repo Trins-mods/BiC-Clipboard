@@ -72,14 +72,10 @@ public final class ClipboardReadOnlyRenderer {
         Matrix4f matrix4f = pose.last().pose();
         BufferBuilder bb = Tesselator.getInstance().getBuilder();
         bb.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        bb.vertex(matrix4f, x1, y1, 0);
-        bb.uv(minU, minV);
-        bb.vertex(matrix4f, x1, y2, 0);
-        bb.uv(minU, maxV);
-        bb.vertex(matrix4f, x2, y2, 0);
-        bb.uv(maxU, maxV);
-        bb.vertex(matrix4f, x2, y1, 0);
-        bb.uv(maxU, minV);
+        bb.vertex(matrix4f, x1, y1, 0).uv(minU, minV).endVertex();
+        bb.vertex(matrix4f, x1, y2, 0).uv(minU, maxV).endVertex();
+        bb.vertex(matrix4f, x2, y2, 0).uv(maxU, maxV).endVertex();
+        bb.vertex(matrix4f, x2, y1, 0).uv(maxU, minV).endVertex();
         BufferUploader.drawWithShader(bb.end());
     }
 }
