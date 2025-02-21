@@ -86,9 +86,9 @@ public class ClipboardScreen extends Screen {
     }
 
     @Override
-    public void renderBackground(GuiGraphics graphics) {
-        super.renderBackground(graphics);
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
         graphics.blit(BACKGROUND, (width - 192) / 2, 2, 0, 0, 192, 192);
+        super.render(graphics, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -157,7 +157,6 @@ public class ClipboardScreen extends Screen {
 
         @Override
         protected void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-            super.renderWidget(guiGraphics, mouseX, mouseY, partialTick);
             if (getSprite() != null) {
                 guiGraphics.blit(getSprite(), getX(), getY(), 0, 0, 14, 14, 14, 14);
             }
