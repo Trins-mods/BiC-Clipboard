@@ -152,7 +152,7 @@ public class ClipboardBlock extends Block implements EntityBlock, SimpleWaterlog
                         if (blockEntity instanceof ClipboardBlockEntity clipboard) {
                             List<Page> pages = getPages(clipboard, checkY);
                             clipboard.setContent(clipboard.getContent().setPages(pages));
-                            level.playSound(null, pos, SoundEvents.UI_BUTTON_CLICK.value(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                            level.playSound(null, pos, SoundEvents.UI_BUTTON_CLICK, SoundSource.BLOCKS, 1.0F, 1.0F);
                             return InteractionResult.SUCCESS;
                         }
                     }
