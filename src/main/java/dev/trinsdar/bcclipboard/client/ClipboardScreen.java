@@ -115,8 +115,7 @@ public class ClipboardScreen extends Screen {
     @Override
     public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(stack);
-        this.setFocused(null);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        //RenderSystem.setShader(GameRenderer::getPositionTexShader);
         drawTexture(stack, BACKGROUND, (width - 192) / 2, 2, 0, 0, 192, 192, 256, 256);
         super.render(stack, mouseX, mouseY, partialTicks);
     }
@@ -132,6 +131,21 @@ public class ClipboardScreen extends Screen {
             return true;
         }
         return super.mouseScrolled(mouseX, mouseY, delta);
+    }
+
+    @Override
+    public void setFocused(@Nullable GuiEventListener listener) {
+        if (listener != this.getFocused()){
+            for (EditBox box : lines) {
+                if (box != listener || listener == null){
+                    box.setFocus(false);
+                }
+            }
+            if (titleBox != listener || listener == null){
+                titleBox.setFocus(false);
+            }
+        }
+        super.setFocused(listener);
     }
 
     @Override
