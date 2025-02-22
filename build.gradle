@@ -105,6 +105,12 @@ repositories {
             includeGroup "dev.latvian.mods"
         }
     }
+    maven{
+        url = "https://maven.saps.dev/minecraft"
+        content {
+            includeGroup "dev.latvian.mods"
+        }
+    }
     maven {
         // Shedaniel's maven (Architectury API)
         url = "https://maven.architectury.dev"

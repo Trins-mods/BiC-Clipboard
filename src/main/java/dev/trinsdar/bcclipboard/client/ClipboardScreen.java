@@ -17,6 +17,7 @@ import net.minecraft.client.gui.screens.inventory.PageButton;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import org.lwjgl.glfw.GLFW;
@@ -65,7 +66,7 @@ public class ClipboardScreen extends Screen {
     @Override
     protected void init() {
         int x = (width - 192) / 2;
-        titleBox = addRenderableWidget(new ClipboardEditBox(getMinecraft().font, x + 57, 14, 72, 8, Component.empty()));
+        titleBox = addRenderableWidget(new ClipboardEditBox(getMinecraft().font, x + 57, 14, 72, 8, new TextComponent("")));
         titleBox.setTextColor(0);
         titleBox.setBordered(false);
         //titleBox.setTextShadow(false);
@@ -80,7 +81,7 @@ public class ClipboardScreen extends Screen {
                 pages.set(data.active(), page.setCheckboxes(checkboxes));
                 data = data.setPages(pages);
             }));
-            lines[i] = addRenderableWidget(new ClipboardEditBox(getMinecraft().font, x + 45, 15 * i + 28, 109, 8, Component.empty()));
+            lines[i] = addRenderableWidget(new ClipboardEditBox(getMinecraft().font, x + 45, 15 * i + 28, 109, 8, new TextComponent("")));
             lines[i].setTextColor(0);
             lines[i].setBordered(false);
             //lines[i].setTextShadow(false);
@@ -178,7 +179,7 @@ public class ClipboardScreen extends Screen {
         private CheckboxState state = CheckboxState.EMPTY;
 
         public CheckboxButton(int x, int y, OnPress onPress) {
-            super(x, y, 14, 14, Component.empty(), onPress);
+            super(x, y, 14, 14, new TextComponent(""), onPress);
         }
 
         public CheckboxState getState() {
