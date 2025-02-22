@@ -56,25 +56,4 @@ public final class ClipboardReadOnlyRenderer {
     private static void blitSprite(PoseStack pose, ResourceLocation location, int x, int y, int width, int height) {
         ClipboardScreen.drawTexture(pose, location, x, y, 0, 0, width, height, width, height);
     }
-
-    private static void blit(PoseStack pose, ResourceLocation atlasLocation, float x, float y, float uOffset, float vOffset, float uWidth, float vHeight, float textureWidth, float textureHeight) {
-        float minU = uOffset / textureWidth;
-        float maxU = (uOffset + uWidth) / textureWidth;
-        float minV = vOffset / textureHeight;
-        float maxV = (vOffset + vHeight) / textureHeight;
-        innerBlit(pose, atlasLocation, x, x + uWidth, y, y + vHeight, minU, maxU, minV, maxV);
-    }
-
-    private static void innerBlit(PoseStack pose, ResourceLocation atlasLocation, float x1, float x2, float y1, float y2, float minU, float maxU, float minV, float maxV) {
-        RenderSystem.setShaderTexture(0, atlasLocation);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        Matrix4f matrix4f = pose.last().pose();
-        BufferBuilder bb = Tesselator.getInstance().getBuilder();
-        bb.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-        bb.vertex(matrix4f, x1, y1, 0).uv(minU, minV).endVertex();
-        bb.vertex(matrix4f, x1, y2, 0).uv(minU, maxV).endVertex();
-        bb.vertex(matrix4f, x2, y2, 0).uv(maxU, maxV).endVertex();
-        bb.vertex(matrix4f, x2, y1, 0).uv(maxU, minV).endVertex();
-        BufferUploader.drawWithShader(bb.end());
-    }
 }

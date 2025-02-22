@@ -143,7 +143,8 @@ public class ClipboardBlock extends Block implements EntityBlock, SimpleWaterlog
                 level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
                 return InteractionResult.sidedSuccess(level.isClientSide());
             }
-            if (x < 0.73 && x > 0.697){
+            boolean opposite = hit.getDirection().get2DDataValue() > 1;
+            if (hit.getDirection() == state.getValue(FACING) && ((x < 0.73 && x > 0.697 && opposite) || (x < 0.30 && x > 0.265 && !opposite))) {
                 int checkY = getCheckY(y);
                 if (checkY > -1){
                     if (level.isClientSide()) return InteractionResult.CONSUME;
