@@ -2,6 +2,7 @@ package dev.trinsdar.bcclipboard.clipboard;
 
 import dev.trinsdar.bcclipboard.BCClipboardUtils;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.IntTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
@@ -105,7 +106,7 @@ public record ClipboardContent(String title, int active, List<Page> pages) {
             CompoundTag tag = new CompoundTag();
             ListTag checkboxesTag = new ListTag();
             for (CheckboxState checkbox : checkboxes) {
-                checkboxesTag.add(StringTag.valueOf(checkbox.getSerializedName()));
+                checkboxesTag.add(IntTag.valueOf(checkbox.ordinal()));
             }
             tag.put("checkboxes", checkboxesTag);
             ListTag linesTag = new ListTag();
@@ -119,7 +120,7 @@ public record ClipboardContent(String title, int active, List<Page> pages) {
         public void encode(FriendlyByteBuf buf) {
             buf.writeVarInt(checkboxes.size());
             for (CheckboxState checkbox : checkboxes) {
-                buf.writeUtf(checkbox.getSerializedName());
+                buf.writeVarInt(checkbox.ordinal());
             }
             buf.writeVarInt(lines.size());
             for (String line : lines) {
@@ -128,11 +129,14 @@ public record ClipboardContent(String title, int active, List<Page> pages) {
         }
 
         public static Page deserialize(CompoundTag tag) {
-            ListTag checkboxesTag = tag.getList("checkboxes", Tag.TAG_STRING);
+            ListTag checkboxesTag = tag.getList("checkboxes", Tag.TAG_INT);
+            if (checkboxesTag.isEmpty()) checkboxesTag = tag.getList("checkboxes", Tag.TAG_STRING);
             List<CheckboxState> checkboxes = new ArrayList<>();
             for (Tag t : checkboxesTag) {
                 if (t instanceof StringTag stringTag) {
                     checkboxes.add(CheckboxState.valueOf(stringTag.getAsString().toUpperCase()));
+                } else if (t instanceof IntTag intTag) {
+                    checkboxes.add(CheckboxState.values()[intTag.getAsInt()]);
                 }
             }
             ListTag linesTag = tag.getList("lines", Tag.TAG_STRING);
@@ -149,7 +153,7 @@ public record ClipboardContent(String title, int active, List<Page> pages) {
             int size = buf.readVarInt();
             List<CheckboxState> checkboxes = new ArrayList<>();
             for (int i = 0; i < size; i++) {
-                checkboxes.add(CheckboxState.valueOf(buf.readUtf().toUpperCase()));
+                checkboxes.add(CheckboxState.values()[buf.readVarInt()]);
             }
             size = buf.readVarInt();
             List<String> lines = new ArrayList<>();
