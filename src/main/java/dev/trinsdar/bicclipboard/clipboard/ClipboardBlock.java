@@ -1,11 +1,10 @@
-package dev.trinsdar.bicclipboard.clipboard;
+package dev.trinsdar.bcclipboard.clipboard;
 
-import dev.trinsdar.bicclipboard.BiCClipboardUtils;
-import dev.trinsdar.bicclipboard.clipboard.ClipboardContent.Page;
+import dev.trinsdar.bcclipboard.BCClipboardUtils;
+import dev.trinsdar.bcclipboard.clipboard.ClipboardContent.Page;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -50,12 +49,12 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 
 public class ClipboardBlock extends Block implements EntityBlock, SimpleWaterloggedBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    private static final VoxelShape NORTH_SHAPE = BiCClipboardUtils.combine(
+    private static final VoxelShape NORTH_SHAPE = BCClipboardUtils.combine(
             Shapes.box(0.1875, 0.125, 0.9375, 0.8125, 0.8125, 1),
             Shapes.box(0.4375, 0.8125, 0.9375, 0.5625, 0.875, 1));
-    private static final VoxelShape EAST_SHAPE = BiCClipboardUtils.rotate(NORTH_SHAPE, Rotation.CLOCKWISE_90);
-    private static final VoxelShape SOUTH_SHAPE = BiCClipboardUtils.rotate(NORTH_SHAPE, Rotation.CLOCKWISE_180);
-    private static final VoxelShape WEST_SHAPE = BiCClipboardUtils.rotate(NORTH_SHAPE, Rotation.COUNTERCLOCKWISE_90);
+    private static final VoxelShape EAST_SHAPE = BCClipboardUtils.rotate(NORTH_SHAPE, Rotation.CLOCKWISE_90);
+    private static final VoxelShape SOUTH_SHAPE = BCClipboardUtils.rotate(NORTH_SHAPE, Rotation.CLOCKWISE_180);
+    private static final VoxelShape WEST_SHAPE = BCClipboardUtils.rotate(NORTH_SHAPE, Rotation.COUNTERCLOCKWISE_90);
     public ClipboardBlock() {
         super(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(SoundType.WOOD));
         registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));

@@ -1,22 +1,19 @@
-package dev.trinsdar.bicclipboard.client;
+package dev.trinsdar.bcclipboard.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.trinsdar.bcclipboard.BCClipboard;
+import dev.trinsdar.bcclipboard.BCClipboardUtils;
 import dev.trinsdar.bcclipboard.clipboard.CheckboxState;
 import dev.trinsdar.bcclipboard.clipboard.ClipboardContent;
 import dev.trinsdar.bcclipboard.clipboard.ClipboardContent.Page;
 import dev.trinsdar.bcclipboard.clipboard.ClipboardSyncPacket;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.BookViewScreen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -27,8 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClipboardScreen extends Screen {
-    private static final ResourceLocation BACKGROUND = new ResourceLocation(BiCClipboard.ID, "textures/gui/clipboard.png");
-    private final ItemStack stack;
+
     private ClipboardContent data;
     private final CheckboxButton[] checkboxes = new CheckboxButton[ClipboardContent.MAX_LINES];
     private final ClipboardEditBox[] lines = new ClipboardEditBox[ClipboardContent.MAX_LINES];
@@ -38,7 +34,6 @@ public class ClipboardScreen extends Screen {
 
     public ClipboardScreen(ItemStack stack) {
         super(stack.getHoverName());
-        this.stack = stack;
         this.data = ClipboardContent.fromStack(stack);
     }
 
@@ -52,7 +47,7 @@ public class ClipboardScreen extends Screen {
             pages.remove(i);
         }
         data = data.setPages(pages);
-        BiCClipboard.INSTANCE.sendToServer(new ClipboardSyncPacket(data));
+        BCClipboard.INSTANCE.sendToServer(new ClipboardSyncPacket(data));
     }
 
     @Override
@@ -117,7 +112,7 @@ public class ClipboardScreen extends Screen {
     public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(stack);
         //RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        drawTexture(stack, BACKGROUND, (width - 192) / 2, 2, 0, 0, 192, 192, 256, 256);
+        drawTexture(stack, BCClipboardUtils.BACKGROUND_GUI, (width - 192) / 2, 2, 0, 0, 192, 192, 256, 256);
         super.render(stack, mouseX, mouseY, partialTicks);
     }
 
@@ -211,8 +206,8 @@ public class ClipboardScreen extends Screen {
         protected ResourceLocation getSprite() {
             return switch (state) {
                 case EMPTY -> null;
-                case CHECK -> ClipboardReadOnlyRenderer.CHECK_TEXTURE;
-                case X -> ClipboardReadOnlyRenderer.X_TEXTURE;
+                case CHECK -> BCClipboardUtils.CHECK_TEXTURE;
+                case X -> BCClipboardUtils.X_TEXTURE;
             };
         }
     }

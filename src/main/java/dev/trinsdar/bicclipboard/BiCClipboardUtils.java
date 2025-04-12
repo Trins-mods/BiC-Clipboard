@@ -1,5 +1,6 @@
-package dev.trinsdar.bicclipboard;
+package dev.trinsdar.bcclipboard;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -11,7 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
 
-public class BiCClipboardUtils {
+public class BCClipboardUtils {
+
+    public static final ResourceLocation BACKGROUND_BLOCK = new ResourceLocation(BCClipboard.ID, "textures/gui/clipboard_block.png");
+    public static final ResourceLocation BACKGROUND_GUI = new ResourceLocation(BCClipboard.ID, "textures/gui/clipboard.png");
+    public static final ResourceLocation CHECK_TEXTURE = new ResourceLocation(BCClipboard.ID,"textures/gui/check.png");
+    public static final ResourceLocation X_TEXTURE = new ResourceLocation(BCClipboard.ID,"textures/gui/x.png");
+
     private static final Vec3 FROM_ORIGIN = new Vec3(-0.5, -0.5, -0.5);
     public static AABB rotate(AABB box, Rotation rotation) {
         return switch (rotation) {

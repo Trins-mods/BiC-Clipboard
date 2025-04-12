@@ -1,8 +1,8 @@
-package dev.trinsdar.bicclipboard;
+package dev.trinsdar.bcclipboard;
 
 import com.mojang.logging.LogUtils;
-import dev.trinsdar.bicclipboard.client.ClientHandler;
-import dev.trinsdar.bicclipboard.clipboard.ClipboardSyncPacket;
+import dev.trinsdar.bcclipboard.client.ClientHandler;
+import dev.trinsdar.bcclipboard.clipboard.ClipboardSyncPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
@@ -11,9 +11,10 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.slf4j.Logger;
 
-@Mod(BiCClipboard.ID)
-public class BiCClipboard {
-    public static final String ID = "bic_clipboard";
+@Mod(BCClipboard.ID)
+public class BCClipboard {
+
+    public static final String ID = "bc_clipboard";
     public static final Logger LOGGER = LogUtils.getLogger();
     private static final String PROTOCOL_VERSION = "1";
     public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
@@ -24,8 +25,8 @@ public class BiCClipboard {
     );
     private int currMessageId = 0;
 
-    public BiCClipboard() {
-        BiCClipboardData.init();
+    public BCClipboard() {
+        BCClipboardData.init();
         INSTANCE.registerMessage(currMessageId++, ClipboardSyncPacket.class, ClipboardSyncPacket::encode, ClipboardSyncPacket::decode, ClipboardSyncPacket::handle);
         DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientHandler::init);
     }
