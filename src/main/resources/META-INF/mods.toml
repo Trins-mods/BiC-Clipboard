@@ -1,21 +1,21 @@
 modLoader="javafml"
 loaderVersion="${loader_version_range}"
 license="${mod_license}"
-issueTrackerURL="https://github.com/Trins-mods/BC-Clipboard/issues"
+issueTrackerURL="https://github.com/Trins-mods/BiC-Clipboard/issues"
 [[mods]]
-modId="bc_clipboard"
+modId="bic_clipboard"
 version="${mod_version}"
-displayName="BC Clipboard"
+displayName="BiC Clipboard"
 credits="Author of Bibliocraft Legacy for the clipboard code"
 authors="Trinsdar"
 description='''Just a simple port of the clipboard from bibliocraft to modern versions.'''
-[[dependencies.bc_clipboard]]
+[[dependencies.bic_clipboard]]
     modId="forge"
     mandatory=true
     versionRange="${forge_version_range}"
     ordering="NONE"
     side="BOTH"
-[[dependencies.bc_clipboard]]
+[[dependencies.bic_clipboard]]
     modId="minecraft"
     mandatory=true
     versionRange="${minecraft_version_range}"
