@@ -3,10 +3,10 @@ package dev.trinsdar.bicclipboard.client;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import dev.trinsdar.bcclipboard.BCClipboardUtils;
-import dev.trinsdar.bcclipboard.clipboard.CheckboxState;
-import dev.trinsdar.bcclipboard.clipboard.ClipboardBlockEntity;
-import dev.trinsdar.bcclipboard.clipboard.ClipboardContent;
+import dev.trinsdar.bicclipboard.BiCClipboardUtils;
+import dev.trinsdar.bicclipboard.clipboard.CheckboxState;
+import dev.trinsdar.bicclipboard.clipboard.ClipboardBlockEntity;
+import dev.trinsdar.bicclipboard.clipboard.ClipboardContent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -41,7 +41,7 @@ public class ClipboardBER implements BlockEntityRenderer<ClipboardBlockEntity> {
         if (data != null) {
             Minecraft mc = Minecraft.getInstance();
             Font font = mc.font;
-            RenderSystem.setShaderTexture(0, BCClipboardUtils.BACKGROUND_BLOCK);
+            RenderSystem.setShaderTexture(0, BiCClipboardUtils.BACKGROUND_BLOCK);
             GuiComponent.blit(stack, 0, 0, 0, 0, 128, 148, 256, 256);
 
             drawLayeredText(stack, buffer, font, data.title(), 29, 2, 72);
@@ -51,9 +51,9 @@ public class ClipboardBER implements BlockEntityRenderer<ClipboardBlockEntity> {
                 int textY = 15 * i + 16;
                 CheckboxState state = page.checkboxes().get(i);
                 if (state == CheckboxState.CHECK) {
-                    drawSprite(stack, BCClipboardUtils.CHECK_TEXTURE, 2, y, 14, 14);
+                    drawSprite(stack, BiCClipboardUtils.CHECK_TEXTURE, 2, y, 14, 14);
                 } else if (state == CheckboxState.X) {
-                    drawSprite(stack, BCClipboardUtils.X_TEXTURE, 2, y, 14, 14);
+                    drawSprite(stack, BiCClipboardUtils.X_TEXTURE, 2, y, 14, 14);
                 }
                 drawLayeredText(stack, buffer, font, page.lines().get(i), 17, textY, 109);
             }

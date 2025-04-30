@@ -1,7 +1,6 @@
-package dev.trinsdar.bcclipboard.clipboard;
+package dev.trinsdar.bicclipboard.clipboard;
 
-import dev.trinsdar.bcclipboard.BCClipboardUtils;
-import dev.trinsdar.bcclipboard.clipboard.ClipboardContent.Page;
+import dev.trinsdar.bicclipboard.BiCClipboardUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -49,12 +48,12 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 
 public class ClipboardBlock extends Block implements EntityBlock, SimpleWaterloggedBlock {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    private static final VoxelShape NORTH_SHAPE = BCClipboardUtils.combine(
+    private static final VoxelShape NORTH_SHAPE = BiCClipboardUtils.combine(
             Shapes.box(0.1875, 0.125, 0.9375, 0.8125, 0.8125, 1),
             Shapes.box(0.4375, 0.8125, 0.9375, 0.5625, 0.875, 1));
-    private static final VoxelShape EAST_SHAPE = BCClipboardUtils.rotate(NORTH_SHAPE, Rotation.CLOCKWISE_90);
-    private static final VoxelShape SOUTH_SHAPE = BCClipboardUtils.rotate(NORTH_SHAPE, Rotation.CLOCKWISE_180);
-    private static final VoxelShape WEST_SHAPE = BCClipboardUtils.rotate(NORTH_SHAPE, Rotation.COUNTERCLOCKWISE_90);
+    private static final VoxelShape EAST_SHAPE = BiCClipboardUtils.rotate(NORTH_SHAPE, Rotation.CLOCKWISE_90);
+    private static final VoxelShape SOUTH_SHAPE = BiCClipboardUtils.rotate(NORTH_SHAPE, Rotation.CLOCKWISE_180);
+    private static final VoxelShape WEST_SHAPE = BiCClipboardUtils.rotate(NORTH_SHAPE, Rotation.COUNTERCLOCKWISE_90);
     public ClipboardBlock() {
         super(BlockBehaviour.Properties.of(Material.WOOD).instabreak().sound(SoundType.WOOD));
         registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(WATERLOGGED, false));
@@ -149,7 +148,7 @@ public class ClipboardBlock extends Block implements EntityBlock, SimpleWaterlog
                     else {
                         BlockEntity blockEntity = level.getBlockEntity(pos);
                         if (blockEntity instanceof ClipboardBlockEntity clipboard) {
-                            List<Page> pages = getPages(clipboard, checkY);
+                            List<ClipboardContent.Page> pages = getPages(clipboard, checkY);
                             clipboard.setContent(clipboard.getContent().setPages(pages));
                             level.playSound(null, pos, SoundEvents.UI_BUTTON_CLICK, SoundSource.BLOCKS, 1.0F, 1.0F);
                             return InteractionResult.SUCCESS;
@@ -175,14 +174,14 @@ public class ClipboardBlock extends Block implements EntityBlock, SimpleWaterlog
         return checkY;
     }
 
-    private List<Page> getPages(ClipboardBlockEntity clipboard, int checkY) {
-        Page page = clipboard.getContent().pages().get(clipboard.getContent().active());
+    private List<ClipboardContent.Page> getPages(ClipboardBlockEntity clipboard, int checkY) {
+        ClipboardContent.Page page = clipboard.getContent().pages().get(clipboard.getContent().active());
         CheckboxState checkboxState = page.checkboxes().get(checkY);
         checkboxState = checkboxState.cycle();
         List<CheckboxState> checkboxStates = new ArrayList<>(page.checkboxes());
         checkboxStates.set(checkY, checkboxState);
         page = page.setCheckboxes(checkboxStates);
-        List<Page> pages = new ArrayList<>(clipboard.getContent().pages());
+        List<ClipboardContent.Page> pages = new ArrayList<>(clipboard.getContent().pages());
         pages.set(clipboard.getContent().active(), page);
         return pages;
     }
