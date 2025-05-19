@@ -2,19 +2,16 @@ package dev.trinsdar.bicclipboard.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.trinsdar.bcclipboard.BCClipboard;
-import dev.trinsdar.bcclipboard.clipboard.CheckboxState;
-import dev.trinsdar.bcclipboard.clipboard.ClipboardContent;
-import dev.trinsdar.bcclipboard.clipboard.ClipboardContent.Page;
-import dev.trinsdar.bcclipboard.clipboard.ClipboardSyncPacket;
-import net.minecraft.client.Minecraft;
+import dev.trinsdar.bicclipboard.BiCClipboard;
+import dev.trinsdar.bicclipboard.BiCClipboardUtils;
+import dev.trinsdar.bicclipboard.clipboard.CheckboxState;
+import dev.trinsdar.bicclipboard.clipboard.ClipboardContent;
+import dev.trinsdar.bicclipboard.clipboard.ClipboardSyncPacket;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.BookViewScreen;
 import net.minecraft.client.gui.screens.inventory.PageButton;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -26,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClipboardScreen extends Screen {
-    private static final ResourceLocation BACKGROUND = new ResourceLocation(BiCClipboard.ID, "textures/gui/clipboard.png");
+
     private final ItemStack stack;
     private ClipboardContent data;
     private final CheckboxButton[] checkboxes = new CheckboxButton[ClipboardContent.MAX_LINES];
@@ -44,10 +41,10 @@ public class ClipboardScreen extends Screen {
     @Override
     public void onClose() {
         super.onClose();
-        List<Page> pages = new ArrayList<>(data.pages());
+        List<ClipboardContent.Page> pages = new ArrayList<>(data.pages());
         for (int i = pages.size() - 1; i > 0; i--) {
             if (i == data.active()) break;
-            if (!pages.get(i).equals(Page.DEFAULT)) break;
+            if (!pages.get(i).equals(ClipboardContent.Page.DEFAULT)) break;
             pages.remove(i);
         }
         data = data.setPages(pages);
@@ -73,7 +70,7 @@ public class ClipboardScreen extends Screen {
         for (int i = 0; i < ClipboardContent.MAX_LINES; i++) {
             final int j = i; // I love Java
             checkboxes[i] = addRenderableWidget(new CheckboxButton(x + 30, 15 * i + 26, e -> {
-                List<Page> pages = new ArrayList<>(data.pages());
+                List<ClipboardContent.Page> pages = new ArrayList<>(data.pages());
                 ClipboardContent.Page page = pages.get(data.active());
                 List<CheckboxState> checkboxes = new ArrayList<>(page.checkboxes());
                 checkboxes.set(j, ((CheckboxButton) e).getState());
@@ -116,7 +113,7 @@ public class ClipboardScreen extends Screen {
     public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(stack);
         //RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        drawTexture(stack, BACKGROUND, (width - 192) / 2, 2, 0, 0, 192, 192, 256, 256);
+        drawTexture(stack, BiCClipboardUtils.BACKGROUND_GUI, (width - 192) / 2, 2, 0, 0, 192, 192, 256, 256);
         super.render(stack, mouseX, mouseY, partialTicks);
     }
 
@@ -210,8 +207,8 @@ public class ClipboardScreen extends Screen {
         protected ResourceLocation getSprite() {
             return switch (state) {
                 case EMPTY -> null;
-                case CHECK -> ClipboardReadOnlyRenderer.CHECK_TEXTURE;
-                case X -> ClipboardReadOnlyRenderer.X_TEXTURE;
+                case CHECK -> BiCClipboardUtils.CHECK_TEXTURE;
+                case X -> BiCClipboardUtils.X_TEXTURE;
             };
         }
     }
