@@ -1,8 +1,8 @@
 package dev.trinsdar.bicclipboard;
 
-import dev.trinsdar.bcclipboard.clipboard.ClipboardBlock;
-import dev.trinsdar.bcclipboard.clipboard.ClipboardBlockEntity;
-import dev.trinsdar.bcclipboard.clipboard.ClipboardItem;
+import dev.trinsdar.bicclipboard.clipboard.ClipboardBlock;
+import dev.trinsdar.bicclipboard.clipboard.ClipboardBlockEntity;
+import dev.trinsdar.bicclipboard.clipboard.ClipboardItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -14,15 +14,15 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class BCClipboardData {
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, BCClipboard.ID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, BCClipboard.ID);
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, BCClipboard.ID);
+public class BiCClipboardData {
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, BiCClipboard.ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, BiCClipboard.ID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, BiCClipboard.ID);
 
     public static final RegistryObject<Block> CLIPBOARD = BLOCKS.register("clipboard", ClipboardBlock::new);
     public static final RegistryObject<Item> CLIPBOARD_ITEM = ITEMS.register("clipboard", ClipboardItem::new);
     public static final RegistryObject<BlockEntityType<ClipboardBlockEntity>> CLIPBOARD_BLOCK_ENTITY = BLOCK_ENTITIES.register("clipboard", () -> BlockEntityType.Builder.of(ClipboardBlockEntity::new, CLIPBOARD.get()).build(null));
-    public static final CreativeModeTab CLIPBOARD_TAB = new CreativeModeTab(BCClipboard.ID) {
+    public static final CreativeModeTab CLIPBOARD_TAB = new CreativeModeTab(BiCClipboard.ID) {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(CLIPBOARD_ITEM.get());
