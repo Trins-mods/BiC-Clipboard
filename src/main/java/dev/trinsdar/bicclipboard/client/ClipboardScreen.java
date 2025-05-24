@@ -1,6 +1,7 @@
 package dev.trinsdar.bicclipboard.client;
 
 import dev.trinsdar.bicclipboard.BiCClipboard;
+import dev.trinsdar.bicclipboard.BiCClipboardUtils;
 import dev.trinsdar.bicclipboard.clipboard.CheckboxState;
 import dev.trinsdar.bicclipboard.clipboard.ClipboardContent;
 import dev.trinsdar.bicclipboard.clipboard.ClipboardContent.Page;
@@ -21,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClipboardScreen extends Screen {
-    private static final ResourceLocation BACKGROUND = new ResourceLocation(BiCClipboard.ID, "textures/gui/clipboard.png");
     private final ItemStack stack;
     private ClipboardContent data;
     private final CheckboxButton[] checkboxes = new CheckboxButton[ClipboardContent.MAX_LINES];
@@ -102,7 +102,7 @@ public class ClipboardScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-        graphics.blit(BACKGROUND, (width - 192) / 2, 2, 0, 0, 192, 192);
+        graphics.blit(BiCClipboardUtils.BACKGROUND_GUI, (width - 192) / 2, 2, 0, 0, 192, 192);
         super.render(graphics, mouseX, mouseY, partialTicks);
     }
 
@@ -181,8 +181,8 @@ public class ClipboardScreen extends Screen {
         protected ResourceLocation getSprite() {
             return switch (state) {
                 case EMPTY -> null;
-                case CHECK -> ClipboardReadOnlyRenderer.CHECK_TEXTURE;
-                case X -> ClipboardReadOnlyRenderer.X_TEXTURE;
+                case CHECK -> BiCClipboardUtils.CHECK_TEXTURE;
+                case X -> BiCClipboardUtils.X_TEXTURE;
             };
         }
     }
